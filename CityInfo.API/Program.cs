@@ -12,7 +12,10 @@ builder.Services.AddProblemDetails(options =>
 });
 
 // Add services to the container.
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers(options =>
+{
+	options.ReturnHttpNotAcceptable = true;
+}).AddXmlDataContractSerializerFormatters().AddNewtonsoftJson();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
 //swagger
