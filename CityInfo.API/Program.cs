@@ -2,9 +2,17 @@ using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddProblemDetails(options =>
+{
+	options.CustomizeProblemDetails = ctx =>
+	{
+		ctx.ProblemDetails.Extensions.Add("additionalInfo", "This is a additional info");
+		ctx.ProblemDetails.Extensions.Add("server", Environment.MachineName);
+	};
+});
+
 // Add services to the container.
-builder.Services.AddControllers()
-	.AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
 //swagger
