@@ -8,13 +8,26 @@ namespace CityInfo.API.Controllers
 	[ApiController]
 	public class PointsOfInterestController : ControllerBase
 	{
+		private readonly ILogger<PointsOfInterestController> _logger;
+
+		public PointsOfInterestController(ILogger<PointsOfInterestController> logger)
+		{
+			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
+		}
+
 		[HttpGet]
 		public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(int cityid)
 		{
+			_logger.LogTrace("trace msg");
+			_logger.LogDebug("debug msg");
+			_logger.LogWarning("warning msg");
+			_logger.LogError("error msg");
+			_logger.LogCritical("critical msg");
 			var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityid);
 
 			if (city == null)
 			{
+				_logger.LogInformation($"City with id {cityid} wasn't found.");
 				return NotFound();
 			}
 
@@ -73,7 +86,7 @@ namespace CityInfo.API.Controllers
 			return CreatedAtRoute("GetPointOfInterest",
 				new
 				{
-					cityid = cityid,
+					cityid = 1,
 					pointsofinterestid = finalPointOfInterest.Id
 				},
 				response);
