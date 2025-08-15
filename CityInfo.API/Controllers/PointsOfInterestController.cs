@@ -18,6 +18,27 @@ namespace CityInfo.API.Controllers
 		[HttpGet]
 		public ActionResult<IEnumerable<PointOfInterestDto>> GetPointsOfInterest(int cityid)
 		{
+			////this is not a right approach since it is not a global approach. we cant keep adding try and catch at every place
+			//try
+			//{
+			//	throw new Exception("demo ex");
+			//	var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityid);
+
+			//	if (city == null)
+			//	{
+			//		_logger.LogInformation($"City with id {cityid} wasn't found.");
+			//		return NotFound();
+			//	}
+
+			//	return Ok(city.PointsOfInterest);
+			//}
+			//catch (Exception ex)
+			//{
+			//	_logger.LogCritical($"Extion while getting points of interest for city with id {cityid}", ex);
+			//	return StatusCode(500, "A problem happened while handling your request");
+			//}
+
+			//throw new Exception("demo ex");
 			_logger.LogTrace("trace msg");
 			_logger.LogDebug("debug msg");
 			_logger.LogWarning("warning msg");
@@ -32,7 +53,6 @@ namespace CityInfo.API.Controllers
 			}
 
 			return Ok(city.PointsOfInterest);
-
 		}
 
 		[HttpGet("{pointsofinterestid}" ,Name = "GetPointOfInterest")]
